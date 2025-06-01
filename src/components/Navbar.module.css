@@ -1,0 +1,22 @@
+.navbar {
+  width: 100%;
+  padding: 18px 0 18px 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  gap: 32px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.link {
+  font-size: 1.1rem;
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+.link:hover {
+  color: #2563eb;
+} 

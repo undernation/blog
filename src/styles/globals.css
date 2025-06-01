@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Tailwind 선언 3줄 위에 다른 코드 있으면 안 됨 --- */
+/* --- 아래부터는 추가 CSS (딱히 필요 없으면 다 지워도 됨) --- */
+
+body {
+  font-family: 'Noto Sans KR', Arial, Helvetica, sans-serif;
+  background: #f9f9f9;
+  color: #171717;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* 💡 아래 주의! */
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  font-family: inherit !important;   /* 이건 있어도 무방, 오히려 한글엔 좋음 */
+}
