@@ -12,11 +12,11 @@ if (!process.env.MONGODB_URI) {
 
 if (process.env.NODE_ENV === "development") {
   // 개발 환경에서는 핫리로드 시 클라이언트 중복 방지
-  if (!(global as Record<string, unknown>)._mongoClientPromise) {
+  if (!(global as { _mongoClientPromise?: Promise<MongoClient> })._mongoClientPromise) {
     client = new MongoClient(uri, options);
-    (global as Record<string, unknown>)._mongoClientPromise = client.connect();
+    (global as { _mongoClientPromise?: Promise<MongoClient> })._mongoClientPromise = client.connect();
   }
-  clientPromise = (global as Record<string, unknown>)._mongoClientPromise;
+  clientPromise = (global as { _mongoClientPromise?: Promise<MongoClient> })._mongoClientPromise!;
 } else {
   client = new MongoClient(uri, options);
   clientPromise = client.connect();

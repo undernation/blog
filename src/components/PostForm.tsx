@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Post } from "@/lib/posts";
 import styles from "./PostForm.module.css";
 import ReactMarkdown from "react-markdown";
 import { useSession } from "next-auth/react";

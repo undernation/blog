@@ -1,5 +1,5 @@
 import clientPromise from "./mongodb";
-import { ObjectId } from "mongodb";
+import { ObjectId, InsertOneResult, Document } from "mongodb";
 
 // 타입 정의
 export type Post = {
@@ -41,7 +41,7 @@ export async function getPostByIdFromDB(id: string): Promise<Post | null> {
   }
 }
 
-export async function addPostToDB(post: Omit<Post, "_id">): Promise<any> {
+export async function addPostToDB(post: Omit<Post, "_id">): Promise<InsertOneResult<Document>> {
   const client = await clientPromise;
   const db = client.db("blog");
   const result = await db.collection("posts").insertOne(post);
