@@ -44,10 +44,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// 폰트 설정
-const font = Noto_Sans_KR({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});

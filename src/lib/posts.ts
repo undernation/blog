@@ -15,7 +15,7 @@ export async function getPostsFromDB(): Promise<Post[]> {
   const db = client.db("blog");
   const posts = await db.collection("posts").find({}).sort({ date: -1 }).toArray();
   // MongoDB에서 불러온 데이터를 Post 타입으로 변환
-  return posts.map((post: any) => ({
+  return posts.map((post: Record<string, any>) => ({
     _id: post._id,
     title: post.title,
     content: post.content,

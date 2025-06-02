@@ -16,19 +16,15 @@ export default function PostForm({ onSubmit, postId }: PostFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
   const { data: session, status } = useSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     if (!session) {
-      setError("로그인한 사용자만 글을 작성할 수 있습니다.");
       return;
     }
     if (!title || !content) {
-      setError("제목과 내용을 입력하세요.");
       return;
     }
     setLoading(true);
@@ -40,15 +36,13 @@ export default function PostForm({ onSubmit, postId }: PostFormProps) {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setError(data.error || "글 작성에 실패했습니다.");
-        setLoading(false);
         return;
       }
       setTitle("");
       setContent("");
       router.push("/"); // 글 목록으로 이동
     } catch (err) {
-      setError("네트워크 오류가 발생했습니다.");
+      return;
     } finally {
       setLoading(false);
     }
@@ -83,7 +77,6 @@ export default function PostForm({ onSubmit, postId }: PostFormProps) {
         >
           {loading ? "작성 중..." : postId ? "글 수정" : "글 작성"}
         </button>
-        {error && <div style={{ color: "#e11d48", marginTop: 8 }}>{error}</div>}
       </form>
       <div className={styles.previewWrap}>
         <div className={styles.previewTitle}>미리보기</div>
