@@ -8,11 +8,10 @@ import ReactMarkdown from "react-markdown";
 import { useSession } from "next-auth/react";
 
 type PostFormProps = {
-  onSubmit?: (data: Omit<Post, "id" | "date">) => void;
   postId?: string;
 };
 
-export default function PostForm({ onSubmit, postId }: PostFormProps) {
+export default function PostForm({ postId }: PostFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,13 +34,12 @@ export default function PostForm({ onSubmit, postId }: PostFormProps) {
         body: JSON.stringify({ title, content }),
       });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
         return;
       }
       setTitle("");
       setContent("");
       router.push("/"); // 글 목록으로 이동
-    } catch (err) {
+    } catch {
       return;
     } finally {
       setLoading(false);
