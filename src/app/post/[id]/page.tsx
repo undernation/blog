@@ -1,10 +1,20 @@
 import { getPostByIdFromDB } from "@/lib/posts";
+import type { Metadata } from 'next';
+import type { PostPageProps } from "./types";
 
-interface PageProps {
-  params: { id: string }
+// generateMetadata도 새 타입명 적용
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const post = await getPostByIdFromDB(params.id);
+
+  if (!post) {
+    return { title: "글을 찾을 수 없습니다." };
+  }
+
+  return { title: post.title };
 }
 
-export default async function Page({ params }: PageProps) {
+// 페이지 컴포넌트도 새 타입명 적용
+export default async function Page({ params }: PostPageProps) {
   const post = await getPostByIdFromDB(params.id);
 
   if (!post) {
