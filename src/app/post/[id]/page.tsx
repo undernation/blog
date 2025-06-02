@@ -1,6 +1,10 @@
 import { getPostByIdFromDB } from "@/lib/posts";
 
-export default async function PostDetail({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: { id: string }
+}
+
+export default async function Page({ params }: PageProps) {
   const post = await getPostByIdFromDB(params.id);
 
   if (!post) {
