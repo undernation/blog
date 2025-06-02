@@ -1,13 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* --- Tailwind 선언 3줄 위에 다른 코드 있으면 안 됨 --- */
-/* --- 아래부터는 추가 CSS (딱히 필요 없으면 다 지워도 됨) --- */
+@import "tailwindcss";
 
 body {
   font-family: 'Noto Sans KR', Arial, Helvetica, sans-serif;
-  background: #f9f9f9;
   color: #171717;
   margin: 0;
   padding: 0;
