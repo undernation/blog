@@ -7,6 +7,7 @@ export type Post = {
   title: string;
   content: string;
   date: string;
+  author: string;
 };
 
 // 모든 글 반환
@@ -20,6 +21,7 @@ export async function getPostsFromDB(): Promise<Post[]> {
     title: post.title as string,
     content: post.content as string,
     date: post.date as string,
+    author: post.author as string,
   }));
 }
 
@@ -35,6 +37,7 @@ export async function getPostByIdFromDB(id: string): Promise<Post | null> {
       title: post.title,
       content: post.content,
       date: post.date,
+      author: post.author,
     };
   } catch {
     return null;
