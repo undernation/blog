@@ -39,8 +39,8 @@ export default function PageClient({ post }: PageClientProps) {
 
         {isAuthor && (
           <div style={{ display:"flex", gap:12, marginBottom:16 }}>
-            <button style={{ color:"red" }} onClick={handleDelete}>삭제</button>
-            <button onClick={() => router.push(`/edit/${post._id}`)}>수정</button>
+            <button className="deleteBtn" onClick={handleDelete}>삭제</button>
+            <button className="editBtn" onClick={() => router.push(`/edit/${post._id}`)}>수정</button>
           </div>
         )}
 

@@ -10,4 +10,33 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     return NextResponse.json({ ok: true });
   }
   return NextResponse.json({ error: "삭제 실패" }, { status: 400 });
+}
+
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  const client = await clientPromise;
+  const db = client.db("blog");
+  const { title, content } = await req.json();
+  const result = await db.collection("posts").updateOne(
+    { _id: new ObjectId(params.id) },
+    { $set: { title, content } }
+  );
+  if (result.modifiedCount === 1) {
+    return NextResponse.json({ ok: true });
+  }
+  return NextResponse.json({ error: "수정 실패" }, { status: 400 });
+}
+
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  const client = await clientPromise;
+  const db = client.db("blog");
+  const post = await db.collection("posts").findOne({ _id: new ObjectId(params.id) });
+  if (!post) {
+    return NextResponse.json({ error: "글을 찾을 수 없습니다." }, { status: 404 });
+  }
+  return NextResponse.json({
+    title: post.title,
+    content: post.content,
+    date: post.date,
+    author: post.author,
+  });
 } 

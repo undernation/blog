@@ -5,10 +5,10 @@ const nextConfig: NextConfig = {
 };
 
 // next.config.js
-module.exports = {
-  typescript: {
-    ignoreBuildErrors: true,  // 👈 이거 추가!
-  },
-};
+// module.exports = {
+//   typescript: {
+//     ignoreBuildErrors: true,  // 👈 이거 추가!
+//   },
+// };
 
 export default nextConfig;

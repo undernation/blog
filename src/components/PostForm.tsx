@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./PostForm.module.css";
 import ReactMarkdown from "react-markdown";
@@ -18,6 +18,19 @@ export default function PostForm({ postId }: PostFormProps) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  useEffect(() => {
+    if (postId) {
+      (async () => {
+        const res = await fetch(`/api/posts/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setTitle(data.title);
+          setContent(data.content);
+        }
+      })();
+    }
+  }, [postId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!session) return;
@@ -25,11 +38,20 @@ export default function PostForm({ postId }: PostFormProps) {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content, author: session.user?.email }),
-      });
+      let res;
+      if (postId) {
+        res = await fetch(`/api/posts/${postId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title, content }),
+        });
+      } else {
+        res = await fetch("/api/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title, content, author: session.user?.email }),
+        });
+      }
       if (!res.ok) return;
 
       setTitle("");
@@ -65,26 +87,9 @@ export default function PostForm({ postId }: PostFormProps) {
           required
         />
         <button type="submit" className={styles.button} disabled={loading}>
-          {loading ? "작성 중..." : postId ? "글 수정" : "글 작성"}
+          {loading ? (postId ? "저장 중..." : "작성 중...") : postId ? "저장" : "글 작성"}
         </button>
       </form>
-
-      <div className={styles.previewWrap}>
-        <div className={styles.previewTitle}>미리보기</div>
-        <div className={styles.previewBox}>
-          <ReactMarkdown
-            remarkPlugins={[remarkBreaks]}
-            components={{
-              p: ({ node, ...props }) => (
-                <p style={{ margin: "0 0 1em 0" }}>{props.children}</p>
-              ),
-              br: () => <br />,
-            }}
-          >
-            {content}
-          </ReactMarkdown>
-        </div>
-      </div>
     </div>
   );
 }
