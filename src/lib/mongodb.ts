@@ -12,6 +12,7 @@ if (!process.env.MONGODB_URI) {
 
 if (process.env.NODE_ENV === "development") {
   // 개발 환경에서는 핫리로드 시 클라이언트 중복 방지
+  // 서버 전체에서 하나의 client 인스턴스만 생성하여 공유
   if (!(global as { _mongoClientPromise?: Promise<MongoClient> })._mongoClientPromise) {
     client = new MongoClient(uri, options);
     (global as { _mongoClientPromise?: Promise<MongoClient> })._mongoClientPromise = client.connect();

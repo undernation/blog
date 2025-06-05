@@ -1,30 +1,24 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const metadata: Metadata = {
+// 타입스크립트 선언문법!
+// 변수명 : 타입 = 값
+// Metadata 타입은 next/types 패키지에 정의되어 있음
+export const metadata = {
   title: "My Blog",
   description: "개인 블로그입니다",
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
 };
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
+export const themeColor = [
+  { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+];
 
 export default function RootLayout({
   children,
@@ -33,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <Providers>
           <Navbar />
           {children}

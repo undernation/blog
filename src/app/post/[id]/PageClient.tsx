@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import styles from "./PageClient.module.css";
 
 type PageClientProps = {
   post: { _id:string; title:string; content:string; date:string; author:string };
@@ -39,8 +40,8 @@ export default function PageClient({ post }: PageClientProps) {
 
         {isAuthor && (
           <div style={{ display:"flex", gap:12, marginBottom:16 }}>
-            <button className="deleteBtn" onClick={handleDelete}>삭제</button>
-            <button className="editBtn" onClick={() => router.push(`/edit/${post._id}`)}>수정</button>
+            <button className={`${styles.button} ${styles.deleteBtn}`} onClick={handleDelete}>삭제</button>
+            <button className={`${styles.button} ${styles.editBtn}`} onClick={() => router.push(`/edit/${post._id}`)}>수정</button>
           </div>
         )}
 

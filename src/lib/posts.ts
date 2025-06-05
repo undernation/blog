@@ -2,6 +2,7 @@ import clientPromise from "./mongodb";
 import { ObjectId, InsertOneResult, Document } from "mongodb";
 
 // 타입 정의
+// 타입스크립트 문법임임
 export type Post = {
   _id?: ObjectId;
   title: string;
@@ -11,7 +12,9 @@ export type Post = {
 };
 
 // 모든 글 반환
+// Promise는 비동기 작업 결과 나중에 받을 수 있게 해주는 js 객체임.
 export async function getPostsFromDB(): Promise<Post[]> {
+  // 비동기 작업 결과를 받아오기 위해 await 사용
   const client = await clientPromise;
   const db = client.db("blog");
   const posts = await db.collection("posts").find({}).sort({ date: -1 }).toArray();
