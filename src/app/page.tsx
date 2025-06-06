@@ -1,6 +1,7 @@
 import PostList from "@/components/PostList";
 import { getPostsFromDB } from "@/lib/posts";
 import Link from "next/link";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const posts = await getPostsFromDB();
