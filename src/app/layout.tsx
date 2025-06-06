@@ -8,17 +8,16 @@ import { Providers } from "./providers";
 export const metadata = {
   title: "My Blog",
   description: "개인 블로그입니다",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
 };
-
-export const themeColor = [
-  { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-];
 
 export default function RootLayout({
   children,

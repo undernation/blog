@@ -1,15 +1,14 @@
 import { getPostByIdFromDB } from '@/lib/posts'
 import type { Metadata } from 'next'
 import PageClient from "./PageClient"
+import type { PageProps } from '@/types/PageProps'
 
-// ✅ Next.js가 인식할 수 있게 타입을 명시적으로 작성
-type PageProps = {
-  params: { id: string };
-};
+
 
 // ✅ generateMetadata
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post = await getPostByIdFromDB(params.id);
+  const { id } = await params;
+  const post = await getPostByIdFromDB(id);
   if (!post) return { title: "글을 찾을 수 없습니다." };
   return { title: post.title };
 }
@@ -34,7 +33,8 @@ function getTocFromMarkdown(markdown: string) {
 */
 
 export default async function Page({ params }: PageProps) {
-  const post = await getPostByIdFromDB(params.id);
+  const { id } = await params;
+  const post = await getPostByIdFromDB(id);
   if (!post) {
     return <div style={{ padding: 32, textAlign: 'center' }}>글을 찾을 수 없습니다.</div>;
   }
