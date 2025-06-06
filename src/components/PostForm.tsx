@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./PostForm.module.css";
-import ReactMarkdown from "react-markdown";
 import { useSession } from "next-auth/react";
-import remarkBreaks from "remark-breaks"; // ✅ 줄바꿈용 플러그인 추가
 
 type PostFormProps = {
   postId?: string;
