@@ -26,7 +26,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   return NextResponse.json({ error: "수정 실패" }, { status: 400 });
 }
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
   const client = await clientPromise;
   const db = client.db("blog");
   const post = await db.collection("posts").findOne({ _id: new ObjectId(params.id) });
