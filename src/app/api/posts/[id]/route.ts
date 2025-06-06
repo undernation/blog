@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
   const client = await clientPromise;
   const db = client.db("blog");
   const result = await db.collection("posts").deleteOne({ _id: new ObjectId(params.id) });
@@ -12,10 +13,11 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   return NextResponse.json({ error: "삭제 실패" }, { status: 400 });
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
   const client = await clientPromise;
   const db = client.db("blog");
-  const { title, content } = await req.json();
+  const { title, content } = await request.json();
   const result = await db.collection("posts").updateOne(
     { _id: new ObjectId(params.id) },
     { $set: { title, content } }
