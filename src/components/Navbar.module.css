@@ -1,15 +1,23 @@
 .navbar {
   width: 100%;
-  padding: 18px 0 18px 0;
+  padding: 18px 0;
   margin-bottom: 32px;
   border-bottom: 1px solid #e5e5e5;
-  display: flex;
-  gap: 32px;
   background: #fff;
   position: sticky;
   top: 0;
   z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.left {
+  display: flex;
+  gap: 32px;
+  margin-left: 32px; /* 원하는 만큼 조절 */
+}
+
 .link {
   font-size: 1.1rem;
   color: #222;
@@ -17,6 +25,28 @@
   font-weight: bold;
   transition: color 0.2s;
 }
+
 .link:hover {
   color: #2563eb;
+}
+
+.right {
+  margin-right: 20px;
+}
+
+.logoutBtn {
+  padding: 8px 20px;
+  background: #fff;
+  color: #ef4444;
+  border: 1.5px solid #ef4444;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.logoutBtn:hover {
+  background: #ef4444;
+  color: #fff;
 } 
