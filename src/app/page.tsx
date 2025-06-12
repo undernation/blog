@@ -24,7 +24,7 @@ export default async function Home() {
         border: "1px solid #ececec",
         height: "fit-content",
         position: "sticky",
-        top: 32,
+        top: 80,
         minWidth: 140,
         maxWidth: 180
       }}>

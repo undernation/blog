@@ -6,7 +6,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import styles from "./PageClient.module.css";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
+import { ReactNode } from "react";
 
 type PageClientProps = {
   post: { _id:string; title:string; content:string; date:string; author:string };
@@ -55,22 +56,22 @@ export default function PageClient({ post }: PageClientProps) {
 
   // 마크다운 헤딩에 id 부여
   const renderers = {
-    h1: ({node, ...p}: any) => {
+    h1: (p: { children?: ReactNode }) => {
       const text = String(p.children);
       const id = text.toLowerCase().replace(/[^a-z0-9가-힣\s]/g, '').replace(/\s+/g, '-');
       return <h1 id={id} style={{fontSize:"2rem",fontWeight:700,margin:"32px 0 18px"}}>{p.children}</h1>;
     },
-    h2: ({node, ...p}: any) => {
+    h2: (p: { children?: ReactNode }) => {
       const text = String(p.children);
       const id = text.toLowerCase().replace(/[^a-z0-9가-힣\s]/g, '').replace(/\s+/g, '-');
       return <h2 id={id} style={{fontSize:"1.4rem",fontWeight:700,margin:"28px 0 14px"}}>{p.children}</h2>;
     },
-    h3: ({node, ...p}: any) => {
+    h3: (p: { children?: ReactNode }) => {
       const text = String(p.children);
       const id = text.toLowerCase().replace(/[^a-z0-9가-힣\s]/g, '').replace(/\s+/g, '-');
       return <h3 id={id} style={{fontSize:"1.15rem",fontWeight:700,margin:"22px 0 10px"}}>{p.children}</h3>;
     },
-    p : ({...p}: any) => <p style={{ margin:"1em 0", whiteSpace:"pre-wrap" }}>{p.children}</p>,
+    p : (p: { children?: ReactNode }) => <p style={{ margin:"1em 0", whiteSpace:"pre-wrap" }}>{p.children}</p>,
     br: () => <br/>,
   };
 
@@ -125,7 +126,7 @@ export default function PageClient({ post }: PageClientProps) {
           className={styles.tocWrap}
           style={{
             position: "fixed",
-            right: "80px", // 화면 오른쪽에서 80px 떨어짐
+            right: "180px", // 화면 오른쪽에서 80px 떨어짐
             top: "120px",  // 네비게이션바 아래에서 120px 떨어짐
             zIndex: 10,
           }}

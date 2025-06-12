@@ -67,4 +67,10 @@
 .tocItemH3 {
   padding-left: 2.5em;
   font-size: 0.95em;
+}
+
+@media (max-width: 768px) {
+  .tocWrap {
+    display: none;
+  }
 } 
